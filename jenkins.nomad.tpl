@@ -1,8 +1,8 @@
 job "${nomad_namejob}" {
 
   datacenters = ["${datacenter}"]
-  # namespace = "${nomad_namespace}"
-  namespace = "default"
+  namespace = "${nomad_namespace}"
+  # namespace = "default"
   type = "service"
 
   group "jenkins" {
