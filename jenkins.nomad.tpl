@@ -73,7 +73,7 @@ EOH
       template {
         destination = "local/proxy.xml"
         change_mode = "restart"
-        env = true
+        # env = true
         data = <<EOH
 <?xml version='1.1' encoding='UTF-8'?>
 <proxy>
@@ -138,16 +138,17 @@ EOH
             }
           }
         }
-      }
 
-      mount {
+        mount {
           type = "bind"
           target = "/var/lib/jenkins_home/proxy.xml"
           source = "local/proxy.xml"
           bind_options {
               propagation = "rshared"
           }
-      } 
+        }
+        
+      }
 
       resources {
         cpu    = 2400 # MHz
