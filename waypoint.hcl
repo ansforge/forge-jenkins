@@ -54,5 +54,5 @@ variable "image" {
 
 variable "tag" {
     type    = string
-    default = "2.445"
+    default = "2.444"
 }

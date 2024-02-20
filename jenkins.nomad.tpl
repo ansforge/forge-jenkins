@@ -69,57 +69,11 @@ JENKINS_HOME = "/var/lib/jenkins/"
 JENKINS_SLAVE_AGENT_PORT = 5050
 EOH
       }
-
-      template {
-        destination = "local/proxy.xml"
-        change_mode = "restart"
-        # env = true
-        data = <<EOH
-<?xml version='1.1' encoding='UTF-8'?>
-<proxy>
-  <name>10.0.49.163</name>
-  <port>3128</port>
-  <userName></userName>
-  <noProxyHost>rhodecode.proxy.dev.forge.esante.gouv.fr
-repo.proxy-dev-forge.asip.hst.fluxus.net
-rhodecode.proxy-dev-forge.asip.hst.fluxus.net
-forge-admin01.asip.hst.fluxus.net
-forge-scm01.asip.hst.fluxus.net
-forge-back01.asip.hst.fluxus.net
-forge-back02.asip.hst.fluxus.net
-forge-ci-java-back04.asip.hst.fluxus.net
-forge-ci-proc-back06.forge.asip.hst.fluxus.net
-forge-ci-puppet-back03.asip.hst.fluxus.net
-forge-ci-build-rpms.forge.asip.hst.fluxus.net
-st-forge.asipsante.fr
-bu-forge.asipsante.fr
-admin-forge.asipsante.fr
-scm-forge.asipsante.fr
-qual-forge.asipsante.fr
-10.0.70.2
-10.0.70.7
-rhodecode.apache.forge.henix.asipsante.fr
-rhodecode.forge.henix.asipsante.fr
-rhodecode.forge.presta.henix.asipsante.fr
-gitlab.forge.presta.henix.asipsante.fr
-gitlab.forge.henix.asipsante.fr
-
-10.0.0.0/8
-*.forge.esante.gouv.fr
-
-10.0.49.163:3128
-10.0.49.163:3128
-  </noProxyHost>
-  <secretPassword></secretPassword>
-  <testUrl>https://updates.jenkins.io/</testUrl>
-</proxy>
-EOH
-      }
-
+       
       config {
         image = "${image}:${tag}"
         ports   = ["jenkins-network"]
-
+        
         # MONTAGE DU DISK PERSISTANT
         mount {
           type = "volume"
@@ -138,16 +92,6 @@ EOH
             }
           }
         }
-
-        // mount {
-        //   type = "bind"
-        //   target = "/var/lib/jenkins_home/proxy.xml"
-        //   source = "local/proxy.xml"
-        //   bind_options {
-        //       propagation = "rshared"
-        //   }
-        // }
-        
       }
 
       resources {
