@@ -139,14 +139,14 @@ EOH
           }
         }
 
-        mount {
-          type = "bind"
-          target = "/var/lib/jenkins_home/proxy.xml"
-          source = "local/proxy.xml"
-          bind_options {
-              propagation = "rshared"
-          }
-        }
+        // mount {
+        //   type = "bind"
+        //   target = "/var/lib/jenkins_home/proxy.xml"
+        //   source = "local/proxy.xml"
+        //   bind_options {
+        //       propagation = "rshared"
+        //   }
+        // }
         
       }
 
