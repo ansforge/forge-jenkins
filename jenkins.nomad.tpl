@@ -143,7 +143,7 @@ EOH
       mount {
           type = "bind"
           target = "/var/lib/jenkins_home/proy.xml"
-          source = "local/proy.xml"
+          source = "local/proxy.xml"
           bind_options {
               propagation = "rshared"
           }
