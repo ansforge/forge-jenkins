@@ -4,7 +4,7 @@ runner {
     enabled = true
     profile = "common-odr"
     data_source "git" {
-        url  = "https://rhodecode.proxy.dev.forge.esante.gouv.fr/SandBox/QM/PFC/pfc-jenkins.git"
+        url  = "https://github.com/ansforge/psc-jenkins.git"
         ref  = "var.datacenter"
         # path = "jenkins"
         ignore_changes_outside_path = true
