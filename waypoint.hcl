@@ -31,6 +31,7 @@ app "pfc-jenkins" {
 
             nomad_namespace = "${workspace.name}"
             nomad_namejob = var.nomad_namejob
+            jenkins_fqdn = var.jenkins_fqdn
             })
         }
     }
@@ -55,4 +56,8 @@ variable "image" {
 variable "tag" {
     type    = string
     default = "2.440.1-lts-jdk17"
+}
+variable "jenkins_fqdn" {
+     type    = string
+     default = "jenkins.pfcpxent.henix.asipsante.fr"
 }
