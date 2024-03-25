@@ -18,7 +18,7 @@ job "${nomad_namejob}" {
     network {
       port "jenkins-network" { static = 8080 }
       port "slave" { static = 5050 }
-      port "ssh" { static = 22 }
+      # port "ssh" { static = 22 }
     }
     #########################################################
     # Creation du disk persistant avec les droits ouverts
@@ -8522,7 +8522,7 @@ EOH
       }
       config {
         image = "${image}:${tag}"
-        ports   = ["jenkins-network","slave","ssh"]
+        ports   = ["jenkins-network","slave"]
         # MONTAGE DU DISK PERSISTANT
         mount {
           type = "volume"
