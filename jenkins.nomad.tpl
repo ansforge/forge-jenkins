@@ -8645,8 +8645,8 @@ EOH
         # } 
       }
       resources {
-        cpu    = 2400 # MHz
-        memory = 768 # MB
+        cpu = ${jenkins_ressource_cpu}
+        memory = ${jenkins_ressource_mem}
       }
 
       service {

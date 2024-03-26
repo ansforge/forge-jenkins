@@ -32,6 +32,8 @@ app "pfc-jenkins" {
             nomad_namespace = "${workspace.name}"
             nomad_namejob = var.nomad_namejob
             jenkins_fqdn = var.jenkins_fqdn
+            jenkins_ressource_cpu = var.jenkins_ressource_cpu
+            jenkins_ressource_mem = var.jenkins_ressource_mem
             })
         }
     }
@@ -60,4 +62,14 @@ variable "tag" {
 variable "jenkins_fqdn" {
      type    = string
      default = "jenkins.pfcpxent.henix.asipsante.fr"
+}
+
+variable "jenkins_ressource_cpu" {
+    type    = number
+    default = 2400
+}
+
+variable "jenkins_ressource_mem" {
+    type    = number
+    default = 2000
 }
