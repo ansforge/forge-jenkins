@@ -52,7 +52,7 @@ variable datacenter {
 }
 variable "image" {
     type    = string
-    default = "ans/jenkins"
+    default = "ans/jenkins-controller"
 }
 
 variable "tag" {
