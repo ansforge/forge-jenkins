@@ -66,10 +66,10 @@ variable "jenkins_fqdn" {
 
 variable "jenkins_ressource_cpu" {
     type    = number
-    default = 2400
+    default = 3500
 }
 
 variable "jenkins_ressource_mem" {
     type    = number
-    default = 2000
+    default = 4096
 }
