@@ -5,10 +5,10 @@ job "${nomad_namejob}" {
   # namespace = "default"
   type = "service"
 
-    vault {
-        policies = ["forge"]
-        change_mode = "restart"
-    }
+    # vault {
+    #     policies = ["forge"]
+    #     change_mode = "restart"
+    # }
 
   group "jenkins" {
     count = 1
@@ -99,90 +99,90 @@ EOH
 EOH
       }
 
-      template {
-        destination = "local/ca-bundle.crt"
-        change_mode = "restart"
-        data = <<EOH
-{{ with secret "forge/jenkins" }}{{ .Data.data.ca_bundle }}{{ end }}
+#       template {
+#         destination = "local/ca-bundle.crt"
+#         change_mode = "restart"
+#         data = <<EOH
+# {{ with secret "forge/jenkins" }}{{ .Data.data.ca_bundle }}{{ end }}
 
-EOH
-      }
-      template {
-        destination = "local/ca-bundle.trust.crt"
-        change_mode = "restart"
-        data = <<EOH
-{{ with secret "forge/jenkins" }}{{ .Data.data.ca_bundle_trust }}{{ end }}
+# EOH
+#       }
+#       template {
+#         destination = "local/ca-bundle.trust.crt"
+#         change_mode = "restart"
+#         data = <<EOH
+# {{ with secret "forge/jenkins" }}{{ .Data.data.ca_bundle_trust }}{{ end }}
 
-EOH
-      }
-      template {
-        destination = "local/ssh_config"
-        change_mode = "restart"
-        data = <<EOH
-#########################################
-# BT sshd_config | RHEL7                #
-#                                       #
-# Based on $OpenBSD (sshd_config) v1.80 #
-# Rev. 2014-12-03                       #
-#########################################
+# EOH
+#       }
+#       template {
+#         destination = "local/ssh_config"
+#         change_mode = "restart"
+#         data = <<EOH
+# #########################################
+# # BT sshd_config | RHEL7                #
+# #                                       #
+# # Based on $OpenBSD (sshd_config) v1.80 #
+# # Rev. 2014-12-03                       #
+# #########################################
 
-# SendEnv LANG LC_*
-# HashKnownHosts yes
+# # SendEnv LANG LC_*
+# # HashKnownHosts yes
 
-# Port to listen
-Port 22
+# # Port to listen
+# Port 22
 
-# Protocol to use
-Protocol 2
+# # Protocol to use
+# Protocol 2
 
-# Logging
-SyslogFacility AUTHPRIV
-LogLevel INFO
+# # Logging
+# SyslogFacility AUTHPRIV
+# LogLevel INFO
 
-# Authentication
-###AllowGroups wheel team iadm gaussusr
-LoginGraceTime 60
-PermitRootLogin yes
-MaxAuthTries 3
-RSAAuthentication no
-PubkeyAuthentication yes
-AuthorizedKeysFile .ssh/authorized_keys
-HostKey /etc/ssh/ssh_host_rsa_key
-HostKey /etc/ssh/ssh_host_ecdsa_key
-RhostsRSAAuthentication no
-HostbasedAuthentication no
-IgnoreRhosts yes
-PasswordAuthentication yes
-ChallengeResponseAuthentication no
-Ciphers aes128-ctr,aes192-ctr,aes256-ctr
-GSSAPIAuthentication yes
-GSSAPICleanupCredentials yes
-UsePAM yes
-UsePrivilegeSeparation sandbox
+# # Authentication
+# ###AllowGroups wheel team iadm gaussusr
+# LoginGraceTime 60
+# PermitRootLogin yes
+# MaxAuthTries 3
+# RSAAuthentication no
+# PubkeyAuthentication yes
+# AuthorizedKeysFile .ssh/authorized_keys
+# HostKey /etc/ssh/ssh_host_rsa_key
+# HostKey /etc/ssh/ssh_host_ecdsa_key
+# RhostsRSAAuthentication no
+# HostbasedAuthentication no
+# IgnoreRhosts yes
+# PasswordAuthentication yes
+# ChallengeResponseAuthentication no
+# Ciphers aes128-ctr,aes192-ctr,aes256-ctr
+# GSSAPIAuthentication yes
+# GSSAPICleanupCredentials yes
+# UsePAM yes
+# UsePrivilegeSeparation sandbox
 
-# Some rules
-ServerKeyBits 2048
-StrictModes yes
-PermitEmptyPasswords no
-PermitUserEnvironment no
-AllowTcpForwarding yes
-X11Forwarding no
-ClientAliveInterval 3000
-ClientAliveCountMax 0
-Banner /etc/issue.net
-Compression yes
+# # Some rules
+# ServerKeyBits 2048
+# StrictModes yes
+# PermitEmptyPasswords no
+# PermitUserEnvironment no
+# AllowTcpForwarding yes
+# X11Forwarding no
+# ClientAliveInterval 3000
+# ClientAliveCountMax 0
+# Banner /etc/issue.net
+# Compression yes
 
-# Define ENV
-AcceptEnv LANG LC_CTYPE LC_NUMERIC LC_TIME LC_COLLATE LC_MONETARY LC_MESSAGES
-AcceptEnv LC_PAPER LC_NAME LC_ADDRESS LC_TELEPHONE LC_MEASUREMENT
-AcceptEnv LC_IDENTIFICATION LC_ALL LANGUAGE
-AcceptEnv XMODIFIERS
+# # Define ENV
+# AcceptEnv LANG LC_CTYPE LC_NUMERIC LC_TIME LC_COLLATE LC_MONETARY LC_MESSAGES
+# AcceptEnv LC_PAPER LC_NAME LC_ADDRESS LC_TELEPHONE LC_MEASUREMENT
+# AcceptEnv LC_IDENTIFICATION LC_ALL LANGUAGE
+# AcceptEnv XMODIFIERS
 
-# Override default of no subsystems
-Subsystem       sftp    /usr/libexec/openssh/sftp-server
+# # Override default of no subsystems
+# Subsystem       sftp    /usr/libexec/openssh/sftp-server
 
-EOH
-      }
+# EOH
+#       }
       
       config {
         image = "${image}:${tag}"
@@ -214,30 +214,30 @@ EOH
             propagation = "rshared"
           }
         }
-        mount {
-          type = "bind"
-          target = "/etc/ssl/certs/ca-bundle.crt"
-          source = "local/ca-bundle.crt"
-          bind_options {
-            propagation = "rshared"
-          }
-        }      
-        mount {
-          type = "bind"
-          target = "/etc/ssl/certs/ca-bundle.trust.crt"
-          source = "local/ca-bundle.trust.crt"
-          bind_options {
-            propagation = "rshared"
-          }
-        }
-        mount {
-          type = "bind"
-          target = "/etc/ssh/ssh_config"
-          source = "local/ssh_config"
-          bind_options {
-            propagation = "rshared"
-          }
-        } 
+        # mount {
+        #   type = "bind"
+        #   target = "/etc/ssl/certs/ca-bundle.crt"
+        #   source = "local/ca-bundle.crt"
+        #   bind_options {
+        #     propagation = "rshared"
+        #   }
+        # }      
+        # mount {
+        #   type = "bind"
+        #   target = "/etc/ssl/certs/ca-bundle.trust.crt"
+        #   source = "local/ca-bundle.trust.crt"
+        #   bind_options {
+        #     propagation = "rshared"
+        #   }
+        # }
+        # mount {
+        #   type = "bind"
+        #   target = "/etc/ssh/ssh_config"
+        #   source = "local/ssh_config"
+        #   bind_options {
+        #     propagation = "rshared"
+        #   }
+        # } 
       }
       resources {
         cpu = ${jenkins_ressource_cpu}
