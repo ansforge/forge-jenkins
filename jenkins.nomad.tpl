@@ -68,7 +68,7 @@ job "${nomad_namejob}" {
         data = <<EOH
 JENKINS_HOME = "/var/lib/jenkins/"
 JENKINS_SLAVE_AGENT_PORT = 5050
-# JENKINS_OPTS="--prefix=/jenkins"
+JENKINS_OPTS="--prefix=/jenkins"
 EOH
       }
 
@@ -8657,7 +8657,7 @@ EOH
         check {
           name     = "alive"
           type     = "http"
-          path     = "/login"
+          path     = "jenkins/login"
           interval = "30s"
           timeout  = "5s"
           port     = "jenkins-network"
