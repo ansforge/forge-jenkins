@@ -4,7 +4,7 @@ runner {
     enabled = true
     profile = "common-odr"
     data_source "git" {
-        url  = "https://github.com/ansforge/psc-jenkins.git"
+        url  = "https://github.com/ansforge/forge-jenkins.git"
         ref  = "var.datacenter"
         # path = "jenkins"
         ignore_changes_outside_path = true
