@@ -52,12 +52,12 @@ variable datacenter {
 }
 variable "image" {
     type    = string
-    default = "jenkins/jenkins"
+    default = "ans/jenkins-controller"
 }
 
 variable "tag" {
     type    = string
-    default = "2.440.1-lts-jdk17"
+    default = "2.440.2-lts-jdk17"
 }
 variable "jenkins_fqdn" {
      type    = string
