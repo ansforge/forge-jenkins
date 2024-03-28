@@ -13,7 +13,7 @@ runner {
         enabled = false
     }
 }
-app "pfc-jenkins" {
+app "forge-jenkins" {
 
     build {
         use "docker-ref" {
@@ -42,7 +42,7 @@ app "pfc-jenkins" {
 
 variable "nomad_namejob" {
     type = string
-    default = "pfc-jenkins"
+    default = "forge-jenkins"
 }
 
 variable datacenter {
@@ -61,7 +61,7 @@ variable "tag" {
 }
 variable "jenkins_fqdn" {
      type    = string
-     default = "jenkins.pfcpxent.henix.asipsante.fr"
+     default = "ci.forge.henix.asipsante.fr"
 }
 
 variable "jenkins_ressource_cpu" {

@@ -56,7 +56,7 @@ job "${nomad_namejob}" {
     }
     
     #########################################################
-    task "pfc-jenkins" {
+    task "forge-jenkins" {
       driver = "docker"
       leader = true # log-shipper
       template {
