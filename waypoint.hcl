@@ -13,7 +13,7 @@ runner {
         enabled = false
     }
 }
-app "forge-jenkins" {
+app "pfc-jenkins" {
 
     build {
         use "docker-ref" {
