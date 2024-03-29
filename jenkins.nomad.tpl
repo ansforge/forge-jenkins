@@ -5,6 +5,11 @@ job "${nomad_namejob}" {
 
   type = "service"
 
+  vault {
+      policies = ["forge"]
+      change_mode = "restart"
+  }
+
   group "jenkins" {
     count = 1
 
@@ -74,21 +79,7 @@ EOH
         destination = "local/hosts"
         change_mode = "restart"
         data = <<EOH
-127.0.0.1       localhost.asip.hst.fluxus.net             localhost
-10.3.9.247      ci.proxy-dev-forge.asip.hst.fluxus.net forge-back11-btts422639.qual.henix.asip.hst.fluxus.net        forge-back11-btts422639
-10.3.9.120      ci-java-forge.henix.asipsante.fr forge-ci-java-back04.asip.hst.fluxus.net vm368a675773.qual.henix.asip.hst.fluxus.net
-10.3.9.85       slave-jenkins.henix.asipsante.fr forge-ci-puppet-back03.asip.hst.fluxus.net vmfb464052.qual.henix.asip.hst.fluxus.net
-10.3.9.245      FORGE-CI-BUILD-RPMS.asip.hst.fluxus.net forge-ci-proc-back06.forge.asip.hst.fluxus.net
-10.3.9.53       forge-ci-proc-back06.forge.asip.hst.fluxus.net
-10.3.9.242      forge-qualim01.asip.hst.fluxus.net FORGE-Qualim01.asip.hst.fluxus.net qual-forge.asipsante.fr
-10.3.9.2        st-forge.asipsante.fr registry.repo.docker.henix.fr
-10.3.9.45       slave-jenkins-puppet6.henix.asipsante.fr forge-ci-puppet-back07.asip.hst.fluxus.net
-10.3.9.241      scm-forge.asipsante.fr
-10.3.8.47       rhodecode.forge.henix.asipsante.fr
-10.3.8.58       ci.forge.presta.henix.asipsante.fr rhodecode.forge.presta.henix.asipsante.fr gitlab.forge.presta.henix.asipsante.fr
-10.3.8.44       admin-forge.asipsante.fr admin-forge.asip.hst.fluxus.net FORGE-Admin01.asip.hst.fluxus.net admin-forge
-10.3.8.165      qual.forge.henix.asipsante.fr
-10.3.8.47       gitlab.forge.henix.asipsante.fr
+{{ with secret "forge/jenkins" }}{{ .Data.data.hosts }}{{ end }}
 EOH
       }
 
