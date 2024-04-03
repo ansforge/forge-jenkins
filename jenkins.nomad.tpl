@@ -41,6 +41,7 @@ job "${nomad_namejob}" {
               name = "pxd"
               options {
                 io_priority = "high"
+                # Valeur à adapter
                 size = 60
                 repl = 2
               }
@@ -98,6 +99,7 @@ EOH
               name = "pxd"
               options {
                 io_priority = "high"
+                # Valeur à adapter
                 size = 60
                 repl = 2
               }

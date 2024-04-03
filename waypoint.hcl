@@ -6,14 +6,13 @@ runner {
     data_source "git" {
         url  = "https://github.com/ansforge/forge-jenkins.git"
         ref  = "var.datacenter"
-        # path = "jenkins"
         ignore_changes_outside_path = true
     }
     poll {
         enabled = false
     }
 }
-app "pfc-jenkins" {
+app "forge-jenkins" {
 
     build {
         use "docker-ref" {
