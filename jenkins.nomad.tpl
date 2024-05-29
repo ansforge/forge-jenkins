@@ -85,6 +85,9 @@ EOH
       }
 
       config {
+        extra_hosts = [ "jenkins.internal:$\u007Battr.unique.network.ip-address\u007D",
+                        "gitlab.internal:$\u007Battr.unique.network.ip-address\u007D"
+                      ]
         image = "${image}:${tag}"
         ports   = ["jenkins-network","slave"]
         # MONTAGE DU DISK PERSISTANT
@@ -123,7 +126,9 @@ EOH
 
       service {
         name = "${nomad_namespace}"
-        tags = ["urlprefix-${jenkins_fqdn}/"]
+        tags = ["urlprefix-${jenkins_fqdn}/",
+                "urlprefix-jenkins.internal/"
+               ]
         port = "jenkins-network"
         check {
           name     = "alive"
