@@ -76,5 +76,20 @@ variable "jenkins_ressource_mem" {
 
 variable "extra_host_artifactory" {
     type    = string
-    default = "st-forge.asipsante.fr registry.repo.docker.henix.fr:1.1.1.1"
+    default = "st-forge.asipsante.fr registry.repo.docker.henix.fr:10.3.9.2"
+}
+
+variable "extra_host_runner_java" {
+    type    = string
+    default = "ci-java-forge.henix.asipsante.fr forge-ci-java-back04.asip.hst.fluxus.net vm368a675773.qual.henix.asip.hst.fluxus.net:10.3.9.120"
+}
+
+variable "extra_host_runner_proc64" {
+    type    = string
+    default = "forge-ci-proc-back06.forge.asip.hst.fluxus.net:10.3.9.53"
+}
+
+variable "extra_host_runner_puppet6" {
+    type    = string
+    default = "slave-jenkins-puppet6.henix.asipsante.fr forge-ci-puppet-back07.asip.hst.fluxus.net:10.3.9.45"
 }
