@@ -112,14 +112,14 @@ EOH
           }
         }
 
-        mount {
-          type = "bind"
-          target = "/etc/hosts"
-          source = "local/hosts"
-          bind_options {
-            propagation = "rshared"
-          }
-        }
+       # mount {
+       #   type = "bind"
+       #   target = "/etc/hosts"
+       #   source = "local/hosts"
+       #   bind_options {
+       #     propagation = "rshared"
+       #   }
+       # }
       }
       resources {
         cpu = ${jenkins_ressource_cpu}
