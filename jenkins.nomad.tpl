@@ -76,16 +76,17 @@ JENKINS_OPTS="--prefix=/jenkins"
 EOH
       }
 
-      template {
-        destination = "local/hosts"
-        change_mode = "restart"
-        data = <<EOH
-{{ with secret "forge/jenkins" }}{{ .Data.data.hosts }}{{ end }}
-EOH
-      }
+      #template {
+      #  destination = "local/hosts"
+      #  change_mode = "restart"
+      #  data = <<EOH
+#{{ with secret "forge/jenkins" }}{{ .Data.data.hosts }}{{ end }}
+#EOH
+      #}
 
       config {
-        extra_hosts = [ "gitlab.internal:$\u007Battr.unique.network.ip-address\u007D"
+        extra_hosts = [ "gitlab.internal:$\u007Battr.unique.network.ip-address\u007D",
+                        {{ with secret "forge/jenkins" }}{{ .Data.data.artifactory }}{{ end }}
                       ]
         image = "${image}:${tag}"
         ports   = ["jenkins-network","slave"]
