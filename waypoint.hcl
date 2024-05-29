@@ -33,6 +33,7 @@ app "forge-jenkins" {
             jenkins_fqdn = var.jenkins_fqdn
             jenkins_ressource_cpu = var.jenkins_ressource_cpu
             jenkins_ressource_mem = var.jenkins_ressource_mem
+            extra_host_artifactory = var.extra_host_artifactory
             })
         }
     }
@@ -71,4 +72,9 @@ variable "jenkins_ressource_cpu" {
 variable "jenkins_ressource_mem" {
     type    = number
     default = 4096
+}
+
+variable "extra_host_artifactory" {
+    type    = string
+    default = "st-forge.asipsante.fr registry.repo.docker.henix.fr:1.1.1.1"
 }
