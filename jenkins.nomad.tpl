@@ -86,7 +86,9 @@ EOH
 
       config {
         extra_hosts = [ "gitlab.internal:$\u007Battr.unique.network.ip-address\u007D",
+                        <<EOH
                         "{{ with secret "forge/jenkins" }}{{ .Data.data.artifactory }}{{ end }}"
+                        EOH
                       ]
         image = "${image}:${tag}"
         ports   = ["jenkins-network","slave"]
