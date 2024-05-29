@@ -34,6 +34,9 @@ app "forge-jenkins" {
             jenkins_ressource_cpu = var.jenkins_ressource_cpu
             jenkins_ressource_mem = var.jenkins_ressource_mem
             extra_host_artifactory = var.extra_host_artifactory
+            extra_host_runner_java = var.extra_host_runner_java
+            extra_host_runner_proc64 = var.extra_host_runner_proc64
+            extra_host_runner_puppet6 = var.extra_host_runner_puppet6
             })
         }
     }
