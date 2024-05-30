@@ -87,6 +87,7 @@ EOH
       config {
         extra_hosts = [ "gitlab.internal qual.internal:$\u007Battr.unique.network.ip-address\u007D",
                         "${extra_host_artifactory}",
+                        "${extra_host_controller_jenkins}",
                         "${extra_host_runner_java}",
                         "${extra_host_runner_proc64}",
                         "${extra_host_runner_puppet6}"
