@@ -73,7 +73,7 @@ job "${nomad_namejob}" {
 JENKINS_HOME = "/var/lib/jenkins/"
 JENKINS_SLAVE_AGENT_PORT = 5050
 JENKINS_OPTS="--prefix=/jenkins"
-JENKINS_JAVA_OPTS="-Xms3072m -Xmx6144m -XX:MaxPermSize=512m -Djava.awt.headless=true -jar /usr/share/jenkins/jenkins.war --handlerCountMax=100 --handlerCountMaxIdle=20 --debug=5"
+JENKINS_JAVA_OPTS="-Xms3072m -Xmx6144m -Djava.awt.headless=true -jar /usr/share/jenkins/jenkins.war --handlerCountMax=100 --handlerCountMaxIdle=20 --debug=5"
 EOH
       }
 
