@@ -34,6 +34,7 @@ app "forge-jenkins" {
             jenkins_ressource_cpu = var.jenkins_ressource_cpu
             jenkins_ressource_mem = var.jenkins_ressource_mem
             extra_host_artifactory = var.extra_host_artifactory
+            extra_host_controller_jenkins = var.extra_host_controller_jenkins
             extra_host_runner_java = var.extra_host_runner_java
             extra_host_runner_proc64 = var.extra_host_runner_proc64
             extra_host_runner_puppet6 = var.extra_host_runner_puppet6
@@ -80,6 +81,11 @@ variable "jenkins_ressource_mem" {
 variable "extra_host_artifactory" {
     type    = string
     default = "st-forge.asipsante.fr registry.repo.docker.henix.fr:10.3.9.2"
+}
+
+variable "extra_host_controller_jenkins" {
+    type    = string
+    default = "ci.forge.presta.henix.asipsante.fr:10.3.8.58"
 }
 
 variable "extra_host_runner_java" {
