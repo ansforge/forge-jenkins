@@ -70,12 +70,12 @@ variable "jenkins_fqdn" {
 
 variable "jenkins_ressource_cpu" {
     type    = number
-    default = 3500
+    default = 5000
 }
 
 variable "jenkins_ressource_mem" {
     type    = number
-    default = 4096
+    default = 8192
 }
 
 variable "extra_host_artifactory" {
