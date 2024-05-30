@@ -72,7 +72,7 @@ job "${nomad_namejob}" {
         data = <<EOH
 JENKINS_HOME = "/var/lib/jenkins/"
 JENKINS_SLAVE_AGENT_PORT = 5050
-JENKINS_OPTS="--prefix=/jenkins"
+JENKINS_OPTS="--prefix=/jenkins -Xms3072m -Xmx6144m -XX:MaxPermSize=512m -Djava.awt.headless=true --handlerCountMax=100 --handlerCountMaxIdle=20 --debug=5"
 EOH
       }
 
