@@ -74,6 +74,7 @@ JENKINS_HOME = "/var/lib/jenkins/"
 JENKINS_SLAVE_AGENT_PORT = 5050
 JENKINS_OPTS="--prefix=/jenkins"
 JENKINS_JAVA_OPTS="-Xms3072m -Xmx6144m"
+TZ="Europe/Paris"
 EOH
       }
 
