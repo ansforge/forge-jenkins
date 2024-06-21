@@ -80,7 +80,7 @@ variable "jenkins_ressource_mem" {
 
 variable "extra_host_artifactory" {
     type    = string
-    default = "forge-back12.asip.hst.fluxus.net	st-forge.asipsante.fr forge-back12 st-forge:10.0.70.2"
+    default = "forge-back12.asip.hst.fluxus.net st-forge.asipsante.fr forge-back12 st-forge:10.0.70.2"
 }
 
 variable "extra_host_proxy_partenaire" {
@@ -90,7 +90,7 @@ variable "extra_host_proxy_partenaire" {
 
 variable "extra_host_runner_java" {
     type    = string
-    default = "forge-ci-java-back14.asip.hst.fluxus.net	forge-ci-java-back14:10.0.65.196"
+    default = "forge-ci-java-back14.asip.hst.fluxus.net forge-ci-java-back14:10.0.65.196"
 }
 
 variable "extra_host_runner_proc64" {
