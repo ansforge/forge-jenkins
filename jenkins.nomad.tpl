@@ -78,14 +78,6 @@ TZ="Europe/Paris"
 EOH
       }
 
-      #template {
-      #  destination = "local/hosts"
-      #  change_mode = "restart"
-      #  data = <<EOH
-#{{ with secret "forge/jenkins" }}{{ .Data.data.hosts }}{{ end }}
-#EOH
-      #}
-
       config {
         extra_hosts = [ "gitlab.internal qual.internal:$\u007Battr.unique.network.ip-address\u007D",
                         "${extra_host_artifactory}",
@@ -116,14 +108,6 @@ EOH
           }
         }
 
-       # mount {
-       #   type = "bind"
-       #   target = "/etc/hosts"
-       #   source = "local/hosts"
-       #   bind_options {
-       #     propagation = "rshared"
-       #   }
-       # }
       }
       resources {
         cpu = ${jenkins_ressource_cpu}
