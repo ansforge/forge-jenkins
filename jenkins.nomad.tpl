@@ -73,18 +73,19 @@ job "${nomad_namejob}" {
 JENKINS_HOME = "/var/lib/jenkins/"
 JENKINS_SLAVE_AGENT_PORT = 5050
 JENKINS_OPTS="--prefix=/jenkins"
-EOH
-      }
-
-      template {
-        destination = "local/hosts"
-        change_mode = "restart"
-        data = <<EOH
-{{ with secret "forge/jenkins" }}{{ .Data.data.hosts }}{{ end }}
+JENKINS_JAVA_OPTS="-Xms3072m -Xmx6144m"
+TZ="Europe/Paris"
 EOH
       }
 
       config {
+        extra_hosts = [ "gitlab.internal qual.internal:$\u007Battr.unique.network.ip-address\u007D",
+                        "${extra_host_artifactory}",
+                        "${extra_host_proxy_partenaire}",
+                        "${extra_host_runner_java}",
+                        "${extra_host_runner_proc64}",
+                        "${extra_host_runner_puppet6}"
+                      ]
         image = "${image}:${tag}"
         ports   = ["jenkins-network","slave"]
         # MONTAGE DU DISK PERSISTANT
@@ -107,14 +108,6 @@ EOH
           }
         }
 
-        mount {
-          type = "bind"
-          target = "/etc/hosts"
-          source = "local/hosts"
-          bind_options {
-            propagation = "rshared"
-          }
-        }
       }
       resources {
         cpu = ${jenkins_ressource_cpu}
@@ -123,7 +116,9 @@ EOH
 
       service {
         name = "${nomad_namespace}"
-        tags = ["urlprefix-${jenkins_fqdn}/"]
+        tags = ["urlprefix-${jenkins_fqdn}/",
+                "urlprefix-jenkins.internal/"
+               ]
         port = "jenkins-network"
         check {
           name     = "alive"
