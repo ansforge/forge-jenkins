@@ -85,7 +85,7 @@ variable "extra_host_artifactory" {
 
 variable "extra_host_proxy_partenaire" {
     type    = string
-    default = ""
+    default = "forge-prox-partenaire-a-definir"
 }
 
 variable "extra_host_runner_java" {
