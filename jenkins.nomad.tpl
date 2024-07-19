@@ -42,7 +42,7 @@ job "${nomad_namejob}" {
               options {
                 io_priority = "high"
                 # Valeur à adapter
-                size = 20
+                size = 100
                 repl = 2
               }
             }
