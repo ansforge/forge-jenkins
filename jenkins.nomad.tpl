@@ -42,7 +42,7 @@ job "${nomad_namejob}" {
               options {
                 io_priority = "high"
                 # Valeur à adapter
-                size = 60
+                size = 100
                 repl = 2
               }
             }
@@ -52,7 +52,7 @@ job "${nomad_namejob}" {
         args = ["-c", "chown -R 1000:1000 /var/lib/jenkins/"]
       }
       resources {
-        cpu = 50
+        cpu = 500
         memory = 64
       }
       lifecycle {
