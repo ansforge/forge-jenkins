@@ -42,7 +42,7 @@ job "${nomad_namejob}" {
               options {
                 io_priority = "high"
                 # Valeur à adapter
-                size = 80
+                size = 20
                 repl = 2
               }
             }
@@ -101,7 +101,7 @@ EOH
               options {
                 io_priority = "high"
                 # Valeur à adapter
-                size = 60
+                size = 80
                 repl = 2
               }
             }
