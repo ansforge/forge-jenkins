@@ -1,10 +1,10 @@
 #!/bin/bash
 echo "Démarrage du script de sauvegarde de Jenkins"
 #############################################################################
-# Nom du script     : gitlab-backup.sh
+# Nom du script     : jenkins-backup.sh
 # Auteur            : Y.ETRILLARD (QM HENIX)
 # Date de Création  : 29/03/2024
-# Version           : 0.0.1
+# Version           : 1.0.0
 # Descritpion       : Script permettant la sauvegarde des données de Jenkins
 #
 # Historique des mises à jour :
@@ -12,6 +12,8 @@ echo "Démarrage du script de sauvegarde de Jenkins"
 #  Version  |   Date   |   Auteur     |  Description
 #-----------+--------+-------------+------------------------------------------------------
 #  0.0.1    | 29/03/24 | Y.ETRILLARD  | Initialisation du script
+#-----------+--------+-------------+------------------------------------------------------
+#  1.0.0    | 28/08/24 | M. FAUREL   | Modification de la casse du path et timestamp
 #-----------+--------+-------------+------------------------------------------------------
 #
 ###############################################################################################
@@ -43,7 +45,7 @@ BACKUP_CONF_FILENAME="backup_conf_jenkins_${DATE}.tar.gz"
 
 
 # Nombre de jours à garder les dossiers (seront effacés après X jours)
-RETENTION=3
+RETENTION=10
 
 # ---- NE RIEN MODIFIER SOUS CETTE LIGNE ------------------------------------------
 #
@@ -53,7 +55,8 @@ mkdir -p $BACKUP_DIR/$DATE
 # Backup repos
 echo "${TIMESTAMP} Starting backup jenkins data..."
 
-$NOMAD exec -namespace=$NAMESPACE -task forge-jenkins -job forge-jenkins tar -cOzv -C $REPO_PATH_DATA jenkins > $BACKUP_DIR/$DATE/$BACKUP_REPO_FILENAME
+# Remove -namespace=$NAMESPACE 
+$NOMAD exec -task forge-jenkins -job forge-jenkins tar -cOzv -C $REPO_PATH_DATA jenkins > $BACKUP_DIR/$DATE/$BACKUP_REPO_FILENAME
 BACKUP_RESULT=$?
 if [ $BACKUP_RESULT -gt 1 ]
 then
@@ -66,7 +69,8 @@ fi
 # Backup conf
 echo "${TIMESTAMP} Starting backup gitlab conf..."
 
-$NOMAD exec -namespace=$NAMESPACE -task forge-jenkins -job forge-jenkins tar  -cOzv -C $REPO_PATH_CONF gitlab > $BACKUP_DIR/$DATE/$BACKUP_CONF_FILENAME
+# Remove -namespace=$NAMESPACE 
+$NOMAD exec -task forge-jenkins -job forge-jenkins tar  -cOzv -C $REPO_PATH_CONF jenkins > $BACKUP_DIR/$DATE/$BACKUP_CONF_FILENAME
 BACKUP_RESULT=$?
 if [ $BACKUP_RESULT -gt 1 ]
 then
