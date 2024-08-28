@@ -23,9 +23,10 @@ NAMESPACE="NAMESPACE"
 
 # Configuration de base: datestamp e.g. YYYYMMDD
 DATE=$(date +"%Y%m%d")
+TIMESTAMP=$(date +"%Y-%m-%d %H:%M:%S")
 
 # Dossier où sauvegarder les backups
-BACKUP_DIR="/var/backup/JENKINS"
+BACKUP_DIR="/var/backup/jenkins"
 
 # Commande NOMAD
 NOMAD=$(which nomad)
@@ -33,12 +34,12 @@ NOMAD=$(which nomad)
 #Repo PATH To BACKUP DATA in the container
 REPO_PATH_DATA=/var/lib/
 #Archive Name of the backup repo directory
-BACKUP_REPO_FILENAME="BACKUP_DATA_JENKINS_${DATE}.tar.gz"
+BACKUP_REPO_FILENAME="backup_data_jenkins_${DATE}.tar.gz"
 
 #Repo PATH To BACKUP DATA in the container
 REPO_PATH_CONF=/etc
 #Archive Name of the backup repo directory
-BACKUP_CONF_FILENAME="BACKUP_DATA_JENKINS_${DATE}.tar.gz"
+BACKUP_CONF_FILENAME="backup_conf_jenkins_${DATE}.tar.gz"
 
 
 # Nombre de jours à garder les dossiers (seront effacés après X jours)
@@ -50,16 +51,29 @@ RETENTION=3
 mkdir -p $BACKUP_DIR/$DATE
 
 # Backup repos
-echo "Starting backup jenkins data..."
+echo "${TIMESTAMP} Starting backup jenkins data..."
 
 $NOMAD exec -namespace=$NAMESPACE -task forge-jenkins -job forge-jenkins tar -cOzv -C $REPO_PATH_DATA jenkins > $BACKUP_DIR/$DATE/$BACKUP_REPO_FILENAME
 BACKUP_RESULT=$?
 if [ $BACKUP_RESULT -gt 1 ]
 then
-        echo "Backup Jenkins Data failed with error code : ${BACKUP_RESULT}"
+       echo "${TIMESTAMP} Backup Jenkins Data failed with error code : ${BACKUP_RESULT}"
         exit 1
 else
-        echo "Backup Jenkins Data done"
+        echo "${TIMESTAMP} Backup Jenkins Data done"
+fi
+
+# Backup conf
+echo "${TIMESTAMP} Starting backup gitlab conf..."
+
+$NOMAD exec -namespace=$NAMESPACE -task forge-jenkins -job forge-jenkins tar  -cOzv -C $REPO_PATH_CONF gitlab > $BACKUP_DIR/$DATE/$BACKUP_CONF_FILENAME
+BACKUP_RESULT=$?
+if [ $BACKUP_RESULT -gt 1 ]
+then
+        echo "${TIMESTAMP} Backup Jenkins Conf failed with error code : ${BACKUP_RESULT}"
+        exit 1
+else
+        echo "${TIMESTAMP} Backup Jenkins Conf done"
 fi
 
 # Remove files older than X days
