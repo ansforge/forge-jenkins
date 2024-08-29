@@ -52,8 +52,8 @@ job "${nomad_namejob}" {
         args = ["-c", "chown -R 1000:1000 /var/lib/jenkins/"]
       }
       resources {
-        cpu = 500
-        memory = 64
+        cpu = 1000
+        memory = 512
       }
       lifecycle {
         hook = "prestart"
