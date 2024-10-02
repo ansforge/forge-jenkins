@@ -21,8 +21,8 @@ job "${nomad_namejob}" {
     }
 
     network {
-      port "jenkins-network" { static = 8080 }
-      port "slave" { static = 5050 }
+      port "jenkins-network" { to = 8080 }
+      #port "slave" { static = 5050 }
     }
     #########################################################
     # Creation du disk persistant avec les droits ouverts
@@ -71,7 +71,7 @@ job "${nomad_namejob}" {
         env = true
         data = <<EOH
 JENKINS_HOME = "/var/lib/jenkins/"
-JENKINS_SLAVE_AGENT_PORT = 5050
+#JENKINS_SLAVE_AGENT_PORT = 5050
 JENKINS_OPTS="--prefix=/jenkins"
 JENKINS_JAVA_OPTS="-Xms3072m -Xmx6144m"
 TZ="Europe/Paris"
@@ -87,7 +87,8 @@ EOH
                         "${extra_host_runner_puppet6}"
                       ]
         image = "${image}:${tag}"
-        ports   = ["jenkins-network","slave"]
+        #ports   = ["jenkins-network","slave"]
+		ports   = ["jenkins-network"]
         # MONTAGE DU DISK PERSISTANT
         mount {
           type = "volume"
