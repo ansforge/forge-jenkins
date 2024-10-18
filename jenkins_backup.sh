@@ -66,7 +66,7 @@ else
 fi
 
 # Backup conf
-echo "${TIMESTAMP} Starting backup gitlab conf..."
+echo "${TIMESTAMP} Starting backup jenkins conf..."
 
 $NOMAD exec -namespace=$NAMESPACE -task forge-jenkins -job forge-jenkins tar  -cOzv -C $REPO_PATH_CONF jenkins > $BACKUP_DIR/$DATE/$BACKUP_CONF_FILENAME
 BACKUP_RESULT=$?
