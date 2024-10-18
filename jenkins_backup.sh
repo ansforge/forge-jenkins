@@ -55,8 +55,7 @@ mkdir -p $BACKUP_DIR/$DATE
 # Backup repos
 echo "${TIMESTAMP} Starting backup jenkins data..."
 
-# Remove -namespace=$NAMESPACE 
-$NOMAD exec -task forge-jenkins -job forge-jenkins tar -cOzv -C $REPO_PATH_DATA jenkins > $BACKUP_DIR/$DATE/$BACKUP_REPO_FILENAME
+$NOMAD exec -namespace=$NAMESPACE -task forge-jenkins -job forge-jenkins tar -cOzv -C $REPO_PATH_DATA jenkins > $BACKUP_DIR/$DATE/$BACKUP_REPO_FILENAME
 BACKUP_RESULT=$?
 if [ $BACKUP_RESULT -gt 1 ]
 then
@@ -69,8 +68,7 @@ fi
 # Backup conf
 echo "${TIMESTAMP} Starting backup gitlab conf..."
 
-# Remove -namespace=$NAMESPACE 
-$NOMAD exec -task forge-jenkins -job forge-jenkins tar  -cOzv -C $REPO_PATH_CONF jenkins > $BACKUP_DIR/$DATE/$BACKUP_CONF_FILENAME
+$NOMAD exec -namespace=$NAMESPACE -task forge-jenkins -job forge-jenkins tar  -cOzv -C $REPO_PATH_CONF jenkins > $BACKUP_DIR/$DATE/$BACKUP_CONF_FILENAME
 BACKUP_RESULT=$?
 if [ $BACKUP_RESULT -gt 1 ]
 then
