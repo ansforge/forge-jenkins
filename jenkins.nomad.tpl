@@ -79,7 +79,7 @@ EOH
       }
 
       config {
-        extra_hosts = [ "gitlab.internal qual.internal rp.artifactory.internal:$\u007Battr.unique.network.ip-address\u007D",
+        extra_hosts = [ "gitlab.internal qual.internal rp.artifactory.internal artifactory.internal:$\u007Battr.unique.network.ip-address\u007D",
                         "${extra_host_artifactory}",
                         "${extra_host_proxy_partenaire}",
                         "${extra_host_runner_java}",
