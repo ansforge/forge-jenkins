@@ -33,6 +33,11 @@ app "forge-jenkins" {
             jenkins_fqdn = var.jenkins_fqdn
             jenkins_ressource_cpu = var.jenkins_ressource_cpu
             jenkins_ressource_mem = var.jenkins_ressource_mem
+            extra_host_artifactory = var.extra_host_artifactory
+            extra_host_proxy_partenaire = var.extra_host_proxy_partenaire
+            extra_host_runner_java = var.extra_host_runner_java
+            extra_host_runner_proc64 = var.extra_host_runner_proc64
+            extra_host_runner_puppet6 = var.extra_host_runner_puppet6
             })
         }
     }
@@ -65,10 +70,35 @@ variable "jenkins_fqdn" {
 
 variable "jenkins_ressource_cpu" {
     type    = number
-    default = 3500
+    default = 5000
 }
 
 variable "jenkins_ressource_mem" {
     type    = number
-    default = 4096
+    default = 8192
+}
+
+variable "extra_host_artifactory" {
+    type    = string
+    default = "forge-back12.asip.hst.fluxus.net st-forge.asipsante.fr forge-back12 st-forge:10.0.70.2"
+}
+
+variable "extra_host_proxy_partenaire" {
+    type    = string
+    default = "forge-prox-partenaire-a-definir forge-prox-partenaire-a-definir:0.0.0.0"
+}
+
+variable "extra_host_runner_java" {
+    type    = string
+    default = "forge-ci-java-back14.asip.hst.fluxus.net forge-ci-java-back14:10.0.65.196"
+}
+
+variable "extra_host_runner_proc64" {
+    type    = string
+    default = "forge-ci-proc-back06.forge.asip.hst.fluxus.net forge-ci-proc-back06:10.0.65.201"
+}
+
+variable "extra_host_runner_puppet6" {
+    type    = string
+    default = "forge-ci-puppet-back13.asip.hst.fluxus.net forge-ci-puppet-back13:10.0.65.198"
 }

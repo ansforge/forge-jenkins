@@ -21,8 +21,8 @@ job "${nomad_namejob}" {
     }
 
     network {
-      port "jenkins-network" { static = 8080 }
-      port "slave" { static = 5050 }
+      port "jenkins-network" { to = 8080 }
+      #port "slave" { static = 5050 }
     }
     #########################################################
     # Creation du disk persistant avec les droits ouverts
@@ -42,7 +42,7 @@ job "${nomad_namejob}" {
               options {
                 io_priority = "high"
                 # Valeur à adapter
-                size = 60
+                size = 20
                 repl = 2
               }
             }
@@ -52,7 +52,7 @@ job "${nomad_namejob}" {
         args = ["-c", "chown -R 1000:1000 /var/lib/jenkins/"]
       }
       resources {
-        cpu = 50
+        cpu = 500
         memory = 64
       }
       lifecycle {
@@ -71,22 +71,24 @@ job "${nomad_namejob}" {
         env = true
         data = <<EOH
 JENKINS_HOME = "/var/lib/jenkins/"
-JENKINS_SLAVE_AGENT_PORT = 5050
+#JENKINS_SLAVE_AGENT_PORT = 5050
 JENKINS_OPTS="--prefix=/jenkins"
-EOH
-      }
-
-      template {
-        destination = "local/hosts"
-        change_mode = "restart"
-        data = <<EOH
-{{ with secret "forge/jenkins" }}{{ .Data.data.hosts }}{{ end }}
+JENKINS_JAVA_OPTS="-Xms3072m -Xmx6144m"
+TZ="Europe/Paris"
 EOH
       }
 
       config {
+        extra_hosts = [ "gitlab.internal qual.internal:$\u007Battr.unique.network.ip-address\u007D",
+                        "${extra_host_artifactory}",
+                        "${extra_host_proxy_partenaire}",
+                        "${extra_host_runner_java}",
+                        "${extra_host_runner_proc64}",
+                        "${extra_host_runner_puppet6}"
+                      ]
         image = "${image}:${tag}"
-        ports   = ["jenkins-network","slave"]
+        #ports   = ["jenkins-network","slave"]
+		ports   = ["jenkins-network"]
         # MONTAGE DU DISK PERSISTANT
         mount {
           type = "volume"
@@ -100,21 +102,13 @@ EOH
               options {
                 io_priority = "high"
                 # Valeur à adapter
-                size = 60
+                size = 80
                 repl = 2
               }
             }
           }
         }
 
-        mount {
-          type = "bind"
-          target = "/etc/hosts"
-          source = "local/hosts"
-          bind_options {
-            propagation = "rshared"
-          }
-        }
       }
       resources {
         cpu = ${jenkins_ressource_cpu}
@@ -123,7 +117,9 @@ EOH
 
       service {
         name = "${nomad_namespace}"
-        tags = ["urlprefix-${jenkins_fqdn}/"]
+        tags = ["urlprefix-${jenkins_fqdn}/",
+                "urlprefix-jenkins.internal/"
+               ]
         port = "jenkins-network"
         check {
           name     = "alive"
