@@ -38,12 +38,6 @@ REPO_PATH_DATA=/var/lib/
 #Archive Name of the backup repo directory
 BACKUP_REPO_FILENAME="backup_data_jenkins_${DATE}.tar.gz"
 
-#Repo PATH To BACKUP DATA in the container
-REPO_PATH_CONF=/etc
-#Archive Name of the backup repo directory
-BACKUP_CONF_FILENAME="backup_conf_jenkins_${DATE}.tar.gz"
-
-
 # Nombre de jours à garder les dossiers (seront effacés après X jours)
 RETENTION=10
 
@@ -63,19 +57,6 @@ then
         exit 1
 else
         echo "${TIMESTAMP} Backup Jenkins Data done"
-fi
-
-# Backup conf
-echo "${TIMESTAMP} Starting backup jenkins conf..."
-
-$NOMAD exec -namespace=$NAMESPACE -task forge-jenkins -job forge-jenkins tar  -cOzv -C $REPO_PATH_CONF jenkins > $BACKUP_DIR/$DATE/$BACKUP_CONF_FILENAME
-BACKUP_RESULT=$?
-if [ $BACKUP_RESULT -gt 1 ]
-then
-        echo "${TIMESTAMP} Backup Jenkins Conf failed with error code : ${BACKUP_RESULT}"
-        exit 1
-else
-        echo "${TIMESTAMP} Backup Jenkins Conf done"
 fi
 
 # Remove files older than X days
