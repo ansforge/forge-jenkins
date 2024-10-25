@@ -49,7 +49,7 @@ mkdir -p $BACKUP_DIR/$DATE
 # Backup repos
 echo "${TIMESTAMP} Starting backup jenkins data..."
 
-$NOMAD exec -namespace=$NAMESPACE -task forge-jenkins -job forge-jenkins tar -cOzv -C $REPO_PATH_DATA jenkins > $BACKUP_DIR/$DATE/$BACKUP_REPO_FILENAME
+$NOMAD exec -namespace=$NAMESPACE -task forge-jenkins -job forge-jenkins tar -cz -C $REPO_PATH_DATA jenkins > $BACKUP_DIR/$DATE/$BACKUP_REPO_FILENAME
 BACKUP_RESULT=$?
 if [ $BACKUP_RESULT -gt 1 ]
 then
