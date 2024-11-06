@@ -15,7 +15,8 @@ echo "Démarrage du script de sauvegarde de Jenkins"
 #-----------+--------+-------------+------------------------------------------------------
 #  1.0.0    | 28/08/24 | M. FAUREL   | Modification de la casse du path et timestamp
 #-----------+--------+-------------+------------------------------------------------------
-#
+#  1.0.1    | 06/11/24 | M. FAUREL   | Modification du timestamp
+#-----------+--------+-------------+------------------------------------------------------#
 ###############################################################################################
 
 . /root/.bash_profile
@@ -25,7 +26,6 @@ NAMESPACE="NAMESPACE"
 
 # Configuration de base: datestamp e.g. YYYYMMDD
 DATE=$(date +"%Y%m%d")
-TIMESTAMP=$(date +"%Y-%m-%d %H:%M:%S")
 
 # Dossier où sauvegarder les backups
 BACKUP_DIR="/var/backup/jenkins"
@@ -47,20 +47,20 @@ RETENTION=10
 mkdir -p $BACKUP_DIR/$DATE
 
 # Backup repos
-echo "${TIMESTAMP} Starting backup jenkins data..."
+echo "$(date +"%Y-%m-%d %H:%M:%S") Starting backup jenkins data..."
 
 $NOMAD exec -namespace=$NAMESPACE -task forge-jenkins -job forge-jenkins tar -cz -C $REPO_PATH_DATA jenkins > $BACKUP_DIR/$DATE/$BACKUP_REPO_FILENAME
 BACKUP_RESULT=$?
 if [ $BACKUP_RESULT -gt 1 ]
 then
-       echo "${TIMESTAMP} Backup Jenkins Data failed with error code : ${BACKUP_RESULT}"
+       echo "$(date +"%Y-%m-%d %H:%M:%S") Backup Jenkins Data failed with error code : ${BACKUP_RESULT}"
         exit 1
 else
-        echo "${TIMESTAMP} Backup Jenkins Data done"
+        echo "$(date +"%Y-%m-%d %H:%M:%S") Backup Jenkins Data done"
 fi
 
 # Remove files older than X days
 find $BACKUP_DIR/* -mtime +$RETENTION -exec rm -rf {} \;
 
-echo "Backup Jenkins finished"
+echo "$(date +"%Y-%m-%d %H:%M:%S") Backup Jenkins finished"
 
