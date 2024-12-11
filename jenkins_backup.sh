@@ -47,20 +47,20 @@ RETENTION=10
 mkdir -p $BACKUP_DIR/$DATE
 
 # Backup repos
-echo "$(date +"%Y-%m-%d %H:%M:%S") Starting backup jenkins data..."
+echo "$(date +"%Y-%m-%d %H:%M:%S") Starting backup jenkins data..." >> $BACKUP_DIR/jenkins_backup-cron-`date +\%F`.log
 
 $NOMAD exec -namespace=$NAMESPACE -task forge-jenkins -job forge-jenkins tar -cz -C $REPO_PATH_DATA jenkins > $BACKUP_DIR/$DATE/$BACKUP_REPO_FILENAME
 BACKUP_RESULT=$?
 if [ $BACKUP_RESULT -gt 1 ]
 then
-       echo "$(date +"%Y-%m-%d %H:%M:%S") Backup Jenkins Data failed with error code : ${BACKUP_RESULT}"
+       echo "$(date +"%Y-%m-%d %H:%M:%S") Backup Jenkins Data failed with error code : ${BACKUP_RESULT}" >> $BACKUP_DIR/jenkins_backup-cron-`date +\%F`.log
         exit 1
 else
-        echo "$(date +"%Y-%m-%d %H:%M:%S") Backup Jenkins Data done"
+        echo "$(date +"%Y-%m-%d %H:%M:%S") Backup Jenkins Data done" >> $BACKUP_DIR/jenkins_backup-cron-`date +\%F`.log
 fi
 
 # Remove files older than X days
 find $BACKUP_DIR/* -mtime +$RETENTION -exec rm -rf {} \;
 
-echo "$(date +"%Y-%m-%d %H:%M:%S") Backup Jenkins finished"
+echo "$(date +"%Y-%m-%d %H:%M:%S") Backup Jenkins finished" >> $BACKUP_DIR/jenkins_backup-cron-`date +\%F`.log
 
