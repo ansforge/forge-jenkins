@@ -29,7 +29,7 @@ job "${nomad_namejob}" {
     task "prep-disk" {
       driver = "docker"
       config {
-        image = "busybox:latest"
+        image = "614q518g.gra7.container-registry.ovh.net/dockerhub-proxy/busybox:latest"
         mount {
           type = "volume"
           target = "/var/lib/jenkins/"
@@ -42,7 +42,7 @@ job "${nomad_namejob}" {
               options {
                 io_priority = "high"
                 # Valeur à adapter
-                size = 20
+                size = 80
                 repl = 2
               }
             }
@@ -52,8 +52,8 @@ job "${nomad_namejob}" {
         args = ["-c", "chown -R 1000:1000 /var/lib/jenkins/"]
       }
       resources {
-        cpu = 500
-        memory = 64
+        cpu = 1000
+        memory = 512
       }
       lifecycle {
         hook = "prestart"
@@ -154,7 +154,7 @@ EOH
             env = true
         }
         config {
-            image = "ans/nomad-filebeat:8.2.3-2.0"
+            image = "614q518g.gra7.container-registry.ovh.net/ans/nomad-filebeat:8.2.3-2.0"
         }
         resources {
             cpu    = 100
