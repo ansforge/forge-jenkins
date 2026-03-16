@@ -50,7 +50,7 @@ job "${nomad_namejob}" {
           }
         }
         command = "sh"
-        args = ["-c", "chown -R 1000:1000 /var/lib/jenkins/"]
+        args = ["-c", "chown 1000:1000 /var/lib/jenkins/"]
       }
       resources {
         cpu = 1000
