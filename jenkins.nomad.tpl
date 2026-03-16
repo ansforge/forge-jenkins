@@ -30,7 +30,7 @@ job "${nomad_namejob}" {
     task "prep-disk" {
       driver = "docker"
       config {
-        image = "614q518g.gra7.container-registry.ovh.net/dockerhub-proxy/busybox:1.37"
+        image = "busybox:latest"
         mount {
           type = "volume"
           target = "/var/lib/jenkins/"
