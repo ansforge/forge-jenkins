@@ -87,7 +87,7 @@ EOH
                         "${extra_host_runner_proc64}",
                         "${extra_host_runner_puppet6}"
                       ]
-        image = "${image}:${tag}"
+        image = "614q518g.gra7.container-registry.ovh.net/${image}:${tag}"
         #ports   = ["jenkins-network","slave"]
 		ports   = ["jenkins-network"]
         # MONTAGE DU DISK PERSISTANT
