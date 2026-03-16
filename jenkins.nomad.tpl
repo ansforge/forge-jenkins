@@ -30,7 +30,7 @@ job "${nomad_namejob}" {
     task "prep-disk" {
       driver = "docker"
       config {
-        image = "busybox:latest"
+        image = "614q518g.gra7.container-registry.ovh.net/dockerhub-proxy/busybox:1.37"
         mount {
           type = "volume"
           target = "/var/lib/jenkins/"
@@ -155,7 +155,7 @@ EOH
             env = true
         }
         config {
-            image = "ans/nomad-filebeat:8.2.3-2.0"
+            image = "614q518g.gra7.container-registry.ovh.net/ans/nomad-filebeat:8.2.3-2.0"
         }
         resources {
             cpu    = 100
